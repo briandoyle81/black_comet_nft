@@ -5,7 +5,15 @@ import "hardhat-deploy"
 require("dotenv").config();
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.9",
+  solidity: {
+    version: "0.8.9",
+    settings: {
+      optimizer: {
+        enabled: false,
+        runs: 200,
+      }
+    }
+  },
   typechain: {
     outDir: "typechain",
   },
