@@ -2,13 +2,13 @@
 pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 import "./BCRoomEvents.sol";
 
-contract RoomTiles is ERC721, Ownable {
+contract RoomTiles is ERC721URIStorage, Ownable {
     uint256 public mintCost = 1 * 10**18;
     bool public mintIsActive = false;
 
@@ -71,8 +71,8 @@ contract RoomTiles is ERC721, Ownable {
             _eventNum
         ));
         uint id = rooms.length -1;
-        ERC721._safeMint(owner, id);
-        // ERC721._setTokenURI(id,rooms[id].artLink);
+        _safeMint(owner, id);
+        _setTokenURI(id,rooms[id].artLink);
     }
 
     function _initializeDefaultRooms() public onlyOwner {
@@ -100,5 +100,6 @@ contract RoomTiles is ERC721, Ownable {
 
     // TODO:
 
+    // EMERGENCY: Fix links if IPFS dies
     // function UpdateArtLink(uint _tokenId, string _newLink)
 }
