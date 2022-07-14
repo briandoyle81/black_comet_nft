@@ -13,10 +13,11 @@ contract RoomTiles is ERC721URIStorage, Ownable {
     bool public mintIsActive = false;
 
     address public EventContract;
+    address public RoomBaseContract;
 
     struct RoomTile {
-        string name;
-        string artLink;
+        // string name; // Don't need these, they're in the metadata
+        // string artLink;
         BCRoomEvents.BCEventType eventType;
         uint8 numDoors;
         uint8 totalDoorStrength;
@@ -34,14 +35,15 @@ contract RoomTiles is ERC721URIStorage, Ownable {
     RoomTile[] public rooms;
     uint256[] public publicRoomTokens;
 
-    constructor() ERC721("Black Comet Rooms", "BCRT") {
+    constructor() ERC721("Black Comet Rooms Tiles", "BCRT") {
 
     }
 
     function _mintRoom(
         address owner,
-        string memory _name,
-        string memory _artLink,
+        // string memory _name,
+        // string memory _artLink,
+        string memory baseMetadataLink,
         BCRoomEvents.BCEventType _eventType,
         uint8 _numDoors,
         uint8 _totalDoorStrength,
@@ -56,8 +58,8 @@ contract RoomTiles is ERC721URIStorage, Ownable {
     ) internal {
         //TODO: NEEDS TO OBEY MINTING BEING ON
         rooms.push(RoomTile(
-            _name,
-            _artLink,
+            // _name,
+            // _artLink,
             _eventType,
             _numDoors,
             _totalDoorStrength,
@@ -72,15 +74,14 @@ contract RoomTiles is ERC721URIStorage, Ownable {
         ));
         uint id = rooms.length -1;
         _safeMint(owner, id);
-        _setTokenURI(id,rooms[id].artLink);
+        _setTokenURI(id, baseMetadataLink);
     }
 
     function _initializeDefaultRooms() public onlyOwner {
         // Create the Reactor Control Room
         _mintRoom(
             msg.sender,
-            "Reactor Control",
-            "https://i.imgur.com/9v84X7m.png", //TODO: IPFS link
+            "ipfs://QmNrngbr1sjLxjC127pcDvMv3195FS5xEmrAwDDtNj3bxj", //TODO: IPFS Metadata link
             BCRoomEvents.BCEventType.SCAVENGER,
             3,
             3,
