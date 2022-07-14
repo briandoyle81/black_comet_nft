@@ -7,7 +7,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { deploy } = deployments;
     const { deployer } = await getNamedAccounts();
 
-    await deploy("BCRoomEvents", {
+    await deploy("BCEvents", {
         // args: [unlockTime],
         from: deployer,
     });

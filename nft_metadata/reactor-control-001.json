@@ -1,5 +1,8 @@
 {
     "name": "Reactor Control",
     "description": "The controls in this room appear to have something to do with the main reactor.  They occasionally flicker to life, but don't seem to respond to your touch.",
-    "image": "ipfs://QmNrngbr1sjLxjC127pcDvMv3195FS5xEmrAwDDtNj3bxj"
+    "image": "ipfs://QmNrngbr1sjLxjC127pcDvMv3195FS5xEmrAwDDtNj3bxj",
+    "properties": {
+
+    }
 }

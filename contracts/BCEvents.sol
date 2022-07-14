@@ -8,23 +8,20 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 // Stores information for events that happen in a specific room
 
-contract BCRoomEvents is Ownable {
-
-    uint256 public mintCost = 1 * 10**18;
-    bool public publicMintIsActive = false;
-
-    enum BCEventType {NONE, BUG, MYSTERY, SCAVENGER, SHIP_SECURITY}
+contract BCEvents is Ownable {
 
     struct BCEvent {
         string name;
         string text;
+        // Effect?
     }
 
-    BCEvent[] public bcEvents;
+    BCEvent[] public bcRoomEvents;
+    BCEvent[] public bcCardEvents;
 
-    // constructor() {
-
-    // }
+    constructor() {
+        _initializeDefaultRoomEvents();
+    }
 
     // function _createEvent(
     //     string memory _name,
@@ -33,8 +30,11 @@ contract BCRoomEvents is Ownable {
 
     // }
 
-    function _initializeDefaultEvents() public onlyOwner {
-        // Create first event
-        bcEvents.push(BCEvent("Test", "Description"));
+    function _initializeDefaultRoomEvents() internal {
+        // Create first events
+        // 0
+        bcRoomEvents.push(BCEvent("", ""));
+        // 1
+        bcRoomEvents.push(BCEvent("Breached Reactor", "As you enter the room, an auxiliary reactor explodes!"));
     }
 }
