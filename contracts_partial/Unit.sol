@@ -6,10 +6,8 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 // import "@openzeppelin/contracts/utils/Counters.sol";
 
-import "./BCEvents.sol";
-
 contract RoomTiles is ERC721URIStorage, Ownable {
-    uint256 public mintCost = 1 * 10**18;
+    uint256 public mintCost = (1 * 10**18) / 100;
     bool public mintIsActive = false;
 
     // address public EventContract; // TODO
@@ -95,7 +93,7 @@ contract RoomTiles is ERC721URIStorage, Ownable {
         ));
     }
 
-    function mintRoom(
+    function _mintRoom(
         address _owner,
         uint256 _roomBase,  //TODO: Can this be smaller?  Won't have 65k bases
         uint8 _numDoors,
@@ -104,11 +102,8 @@ contract RoomTiles is ERC721URIStorage, Ownable {
         uint8 _numData,
         uint8 _numWindows,
         uint16 _roomLevel
-    ) public payable {
+    ) internal {
         // TODO: Room validation - windows, doors, total strength, event, base
-        // TODO: Review implications of owner being able to do this
-        require(msg.sender == owner() || msg.value == mintCost);
-
         roomTiles.push(RoomTile(
             _roomBase,
             _numDoors,
@@ -125,7 +120,7 @@ contract RoomTiles is ERC721URIStorage, Ownable {
 
     function _mintDefaultRoomTiles() internal {
         // 0 Armory
-        mintRoom(
+        _mintRoom(
             msg.sender,
             0,
             3,
@@ -137,7 +132,7 @@ contract RoomTiles is ERC721URIStorage, Ownable {
         );
 
         // 1 Auxiliary Reactor
-        mintRoom(
+        _mintRoom(
             msg.sender,
             1,
             3,
@@ -149,7 +144,7 @@ contract RoomTiles is ERC721URIStorage, Ownable {
         );
 
         // 2 Breached Reactor
-        mintRoom(
+        _mintRoom(
             msg.sender,
             2,
             2,
